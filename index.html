@@ -16,6 +16,7 @@
       <div class="container">
          <div class="cart">
             <div class="col-md-12 col-lg-10 mx-auto">
+              <!--iPhone 11 128GB Black-->
                <div class="cart-item">
                   <div class="row">
                      <div class="col-md-7 center-item">
@@ -25,16 +26,17 @@
 
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="phoneMinusBtn" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="phoneQuantity" type="text" class="form-control text-center" value="1">
+                           <button id="phonePlusBtn" class="btn btn-default"><i  class="fas fa-plus"></i></button>
                         </div>
-                        <h5>$1219</h5>
+                        <h5>$ <span id="phonePrice">1219</span> </h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
                </div>
 
+               <!--iPhone 11 Silicone Case - Black-->
                <div class="cart-item">
                   <div class="row">
                      <div class="col-md-7 center-item mx-auto">
@@ -43,9 +45,9 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="caseMinusBtn" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="caseQuantity" type="text" class="form-control text-center" value="1">
+                           <button id="casePlusBtn" class="btn btn-default"><i class="fas fa-plus"></i></button>
 
                         </div>
                         <h5>$59</h5>
@@ -78,5 +80,52 @@
       </div>
    </section>
 </body>
+
+<script>
+   //Iphone 11 128GB black cart plus button>>>>>>
+   const phonePlusBtn = document.getElementById("phonePlusBtn");
+   phonePlusBtn.addEventListener("click", function(){
+         const phoneQuantity = document.getElementById("phoneQuantity").value;
+         let quantityNumber = parseFloat(phoneQuantity); //converting input string value to float
+         quantityNumber = quantityNumber+1;
+         document.getElementById("phoneQuantity").value = quantityNumber;
+         
+         //update price by clicking plus button
+         const phonePrice = document.getElementById("phonePrice").innerText;
+         const priceAmount = parseFloat(phonePrice);     //converting span text value to float
+         const temp = priceAmount/(quantityNumber-1);
+         let finalAmount = temp*quantityNumber;        //increasing price amount based on quantity
+         document.getElementById("phonePrice").innerText = finalAmount;   //set the increased quantity in input field
+         
+   })
+ 
+ 
+ //Iphone 11 128GB black cart minus button>>>>>>
+ const phoneMinusBtn = document.getElementById("phoneMinusBtn");
+ phoneMinusBtn.addEventListener("click", function(){
+         const phoneQuantity = document.getElementById("phoneQuantity").value;
+         let quantityNumber = parseFloat(phoneQuantity); //converting input string value to float
+
+         if(quantityNumber>1){
+            quantityNumber = quantityNumber-1;
+            document.getElementById("phoneQuantity").value = quantityNumber;
+         
+            //update price by clicking plus button
+            const phonePrice = document.getElementById("phonePrice").innerText;
+            const priceAmount = parseFloat(phonePrice);     //converting span text value to float
+            const temp = priceAmount/(quantityNumber+1);
+            let finalAmount = temp*quantityNumber;        //increasing price amount based on quantity
+            document.getElementById("phonePrice").innerText = finalAmount;   //set the increased quantity in input field
+         }
+          
+ })
+
+  //iPhone 11 Silicone Case - Black cart plus button>>>>>>
+  
+
+
+
+
+</script>
 
 </html>
