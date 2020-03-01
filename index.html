@@ -17,7 +17,7 @@
          <div class="cart">
             <div class="col-md-12 col-lg-10 mx-auto">
               <!--iPhone 11 128GB Black-->
-               <div class="cart-item">
+               <div class="cart-item" id="cartItemPhone">
                   <div class="row">
                      <div class="col-md-7 center-item">
                         <img src="images/product-1.png" alt="">
@@ -31,13 +31,13 @@
                            <button id="phonePlusBtn" class="btn btn-default"><i  class="fas fa-plus"></i></button>
                         </div>
                         <h5>$ <span id="phonePrice">1219</span> </h5>
-                        <img src="images/remove.png" alt="" class="remove-item">
+                        <img id="removePhone" src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
                </div>
 
                <!--iPhone 11 Silicone Case - Black-->
-               <div class="cart-item">
+               <div class="cart-item" id="cartItemCase">
                   <div class="row">
                      <div class="col-md-7 center-item mx-auto">
                         <img src="images/product-2.png" alt="">
@@ -51,7 +51,7 @@
 
                         </div>
                         <h5>$ <span id="casePrice"> 59 </span> </h5>
-                        <img src="images/remove.png" alt="" class="remove-item">
+                        <img id="removeCase" src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
                </div>
@@ -73,7 +73,7 @@
                   </div>
                </div>
                <div class="col-md-12 pt-4 pb-4">
-                  <button type="button" class="btn btn-success check-out">Check Out</button>
+                  <button  type="button" class="btn btn-success check-out">Check Out</button>
                </div>
             </div>
          </div>
@@ -84,6 +84,8 @@
 <script>
   
    let finalAmount; // initializing the global scope variable for commonly access to all functions
+   document.getElementById("phoneQuantity").disabled = true;
+   document.getElementById("caseQuantity").disabled = true;
    
    //Iphone 11 128GB black cart plus button>>>>>>
    const phonePlusBtn = document.getElementById("phonePlusBtn");
@@ -157,25 +159,56 @@
           
  })
 
+const removeCase = document.getElementById("removeCase");
+removeCase.addEventListener("click", function(){
+      removeItem("cartItemCase", "casePrice","phonePrice");
+      
+})
+
+const removePhone = document.getElementById("removePhone");
+removePhone.addEventListener("click", function(){
+   removeItem("cartItemPhone", "phonePrice","casePrice");    
+})
+
+
+
 
 //-----------------------Resuable Functions-----------------//
 
  //update price by clicking plus/minus button>>>
  function updatePrice(id, quantityNumber){
    const Price = document.getElementById(id).innerText;
-         const priceAmount = parseFloat(Price);     //converting span text value to float
-         const temp = priceAmount/(quantityNumber-1);
-         finalAmount = temp*quantityNumber;        //increasing price-amount based on quantity
-         document.getElementById(id).innerText = finalAmount;   //set the increased amount in text field
+         const priceAmount = parseFloat(Price);                 //converting span text value to float
+         const temp = priceAmount/(quantityNumber-1);           // initializing the main price (1219, 59) from updated one
+         finalAmount = temp*quantityNumber;                     //increasing price-amount based on quantity
+         document.getElementById(id).innerText = finalAmount;   //set the updated amount in text field
  
  }
- //updating subtotal and total price>>>>
- function updateSubTotal(id, Amount){
-         let Price = parseFloat(document.getElementById(id).innerText);
-         let subTotal = Amount+Price;
-         document.getElementById("subTotal").innerText = subTotal;
-         document.getElementById("total").innerText = subTotal;
 
+//initializing Subtotal and Total in the global scope variable for minimize the code
+ let subTotal = document.getElementById("subTotal"); 
+ let total = document.getElementById("total");      
+
+//updating subtotal and total price>>>>
+ function updateSubTotal(id, Amount){
+         const Price = parseFloat(document.getElementById(id).innerText);
+         let finalPrice = Amount+Price;
+         subTotal.innerText = finalPrice;
+         total.innerText = finalPrice;
+
+ }
+//removing item from cart and updating the total and subtotal>>
+ function removeItem(id1,id2,id3){
+         document.getElementById(id1).style.display = "none";
+         const removePrice = document.getElementById(id2).innerText = 0;
+         const newPrice = parseFloat( document.getElementById(id3).innerText);
+         subTotal.innerText = newPrice;
+         total.innerText = newPrice;
+
+         if(newPrice == 0){
+            subTotal.innerText = "No Items in Cart";
+            total.innerText = "No Items in Cart";
+         }
  }
 
 </script>
