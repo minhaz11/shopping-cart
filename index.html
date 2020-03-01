@@ -66,9 +66,9 @@
                      </div>
 
                      <div class="col-md-4 status">
-                        <h5>$1,278</h5>
+                        <h5>$ <span id="subTotal">1,278</span> </h5>
                         <h5>$0</h5>
-                        <h5>$1,278</h5>
+                        <h5>$ <span id="total">1,278</span> </h5>
                      </div>
                   </div>
                </div>
@@ -95,7 +95,10 @@
          const priceAmount = parseFloat(phonePrice);     //converting span text value to float
          const temp = priceAmount/(quantityNumber-1);
          let finalAmount = temp*quantityNumber;        //increasing price amount based on quantity
-         document.getElementById("phonePrice").innerText = finalAmount;   //set the increased quantity in input field
+         document.getElementById("phonePrice").innerText = finalAmount;   //set the increased amount in text field
+
+         //updating subtotal and total price
+         updateSubTotal("casePrice", finalAmount);
          
    })
  
@@ -116,6 +119,10 @@
             const temp = priceAmount/(quantityNumber+1);
             let finalAmount = temp*quantityNumber;        //increasing price amount based on quantity
             document.getElementById("phonePrice").innerText = finalAmount;   //set the increased quantity in input field
+
+            //updating subtotal and total price
+             updateSubTotal("casePrice", finalAmount);
+            
          }
           
  })
@@ -135,6 +142,9 @@
          let finalAmount = temp*quantityNumber;        //increasing price amount based on quantity
          document.getElementById("casePrice").innerText = finalAmount;   //set the increased quantity in input field
 
+         //updating subtotal and total price
+         updateSubTotal("phonePrice", finalAmount);
+
   })
 
   //iPhone 11 Silicone Case - Black cart minus button>>>>>>
@@ -153,9 +163,26 @@
             const temp = priceAmount/(quantityNumber+1);
             let finalAmount = temp*quantityNumber;        //increasing price amount based on quantity
             document.getElementById("casePrice").innerText = finalAmount;   //set the increased quantity in input field
+             
+            //updating subtotal and total price
+            updateSubTotal("phonePrice", finalAmount);
          }
           
  })
+
+ 
+ 
+ 
+ //updating subtotal and total price>>>>
+ function updateSubTotal(id, Amount){
+         let Price = parseFloat(document.getElementById(id).innerText);
+         let subTotal = Amount+Price;
+         document.getElementById("subTotal").innerText = subTotal;
+         document.getElementById("total").innerText = subTotal;
+
+ }
+
+
 
 
 
