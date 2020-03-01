@@ -82,20 +82,19 @@
 </body>
 
 <script>
+  
+   let finalAmount; // initializing the global scope variable for commonly access to all functions
+   
    //Iphone 11 128GB black cart plus button>>>>>>
    const phonePlusBtn = document.getElementById("phonePlusBtn");
    phonePlusBtn.addEventListener("click", function(){
          const phoneQuantity = document.getElementById("phoneQuantity").value;
-         let quantityNumber = parseFloat(phoneQuantity); //converting input string value to float
+         let quantityNumber = parseFloat(phoneQuantity); 
          quantityNumber = quantityNumber+1;
          document.getElementById("phoneQuantity").value = quantityNumber;
          
          //update price by clicking plus button
-         const phonePrice = document.getElementById("phonePrice").innerText;
-         const priceAmount = parseFloat(phonePrice);     //converting span text value to float
-         const temp = priceAmount/(quantityNumber-1);
-         let finalAmount = temp*quantityNumber;        //increasing price amount based on quantity
-         document.getElementById("phonePrice").innerText = finalAmount;   //set the increased amount in text field
+         updatePrice("phonePrice", quantityNumber);
 
          //updating subtotal and total price
          updateSubTotal("casePrice", finalAmount);
@@ -107,18 +106,14 @@
  const phoneMinusBtn = document.getElementById("phoneMinusBtn");
  phoneMinusBtn.addEventListener("click", function(){
          const phoneQuantity = document.getElementById("phoneQuantity").value;
-         let quantityNumber = parseFloat(phoneQuantity); //converting input string value to float
+         let quantityNumber = parseFloat(phoneQuantity); 
 
          if(quantityNumber>1){
             quantityNumber = quantityNumber-1;
             document.getElementById("phoneQuantity").value = quantityNumber;
          
-            //update price by clicking plus button
-            const phonePrice = document.getElementById("phonePrice").innerText;
-            const priceAmount = parseFloat(phonePrice);     //converting span text value to float
-            const temp = priceAmount/(quantityNumber+1);
-            let finalAmount = temp*quantityNumber;        //increasing price amount based on quantity
-            document.getElementById("phonePrice").innerText = finalAmount;   //set the increased quantity in input field
+            //update price by clicking minus button
+            updatePrice("phonePrice", -1*quantityNumber);
 
             //updating subtotal and total price
              updateSubTotal("casePrice", finalAmount);
@@ -131,17 +126,13 @@
   const casePlusBtn = document.getElementById("casePlusBtn");
   casePlusBtn.addEventListener("click", function(){
    const caseQuantity = document.getElementById("caseQuantity").value;
-         let quantityNumber = parseFloat(caseQuantity); //converting input string value to float
+         let quantityNumber = parseFloat(caseQuantity); 
          quantityNumber = quantityNumber+1;
          document.getElementById("caseQuantity").value = quantityNumber;
 
           //update price by clicking plus button
-         const casePrice = document.getElementById("casePrice").innerText;
-         const priceAmount = parseFloat(casePrice);     //converting span text value to float
-         const temp = priceAmount/(quantityNumber-1);
-         let finalAmount = temp*quantityNumber;        //increasing price amount based on quantity
-         document.getElementById("casePrice").innerText = finalAmount;   //set the increased quantity in input field
-
+          updatePrice("casePrice", quantityNumber);
+         
          //updating subtotal and total price
          updateSubTotal("phonePrice", finalAmount);
 
@@ -151,18 +142,14 @@
  const caseMinusBtn = document.getElementById("caseMinusBtn");
  caseMinusBtn.addEventListener("click", function(){
          const caseQuantity = document.getElementById("caseQuantity").value;
-         let quantityNumber = parseFloat(caseQuantity); //converting input string value to float
+         let quantityNumber = parseFloat(caseQuantity); 
 
          if(quantityNumber>1){
             quantityNumber = quantityNumber-1;
             document.getElementById("caseQuantity").value = quantityNumber;
          
-            //update price by clicking plus button
-            const casePrice = document.getElementById("casePrice").innerText;
-            const priceAmount = parseFloat(casePrice);     //converting span text value to float
-            const temp = priceAmount/(quantityNumber+1);
-            let finalAmount = temp*quantityNumber;        //increasing price amount based on quantity
-            document.getElementById("casePrice").innerText = finalAmount;   //set the increased quantity in input field
+            //update price by clicking minusbutton
+            updatePrice("casePrice", -1*quantityNumber);
              
             //updating subtotal and total price
             updateSubTotal("phonePrice", finalAmount);
@@ -170,9 +157,18 @@
           
  })
 
+
+//-----------------------Resuable Functions-----------------//
+
+ //update price by clicking plus/minus button>>>
+ function updatePrice(id, quantityNumber){
+   const Price = document.getElementById(id).innerText;
+         const priceAmount = parseFloat(Price);     //converting span text value to float
+         const temp = priceAmount/(quantityNumber-1);
+         finalAmount = temp*quantityNumber;        //increasing price-amount based on quantity
+         document.getElementById(id).innerText = finalAmount;   //set the increased amount in text field
  
- 
- 
+ }
  //updating subtotal and total price>>>>
  function updateSubTotal(id, Amount){
          let Price = parseFloat(document.getElementById(id).innerText);
@@ -181,11 +177,6 @@
          document.getElementById("total").innerText = subTotal;
 
  }
-
-
-
-
-
 
 </script>
 
